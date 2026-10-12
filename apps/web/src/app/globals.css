@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Brand fonts (plain @font-face, real family names — see DESIGN.md) ────── */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Variable.woff2') format('woff2');
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+/* ── Design tokens (DESIGN.md is the source of truth) ─────────────────────── */
+@layer base {
+  :root {
+    --radius: 10px;
+    --ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+    --canvas: #f6f5f2;
+    --canvas-hi: #faf9f7;
+    --canvas-lo: #f2f0ec;
+    --card: #ffffff;
+    --soft: #f1efeb;
+    --line: #e8e5df;
+
+    --ink: #0f0e0c;
+    --body: #3f3d38;
+    --mid: #6b6861;
+    --faint: #6b6861;
+
+    /* accent = ember. --accent for dots/large text, --accent-deep is AA-safe under white text */
+    --accent: #ea580c;
+    --accent-deep: #b84309;
+    --accent-tint: #fdeee3;
+    --accent-lite: #fb923c;
+
+    /* ok = success / positive signal (matches, funded, connected) */
+    --ok: #0b7a55;
+    --ok-tint: #dff3ea;
+
+    --warn: #8a5a00;
+    --warn-bar: #d99a06;
+    --warn-tint: #fbf1d8;
+    --danger: #c5373f;
+    --danger-bar: #e5484d;
+    --danger-tint: #fbeaea;
+    --info: #2462e9;
+    --info-tint: #e8eefa;
+
+    --hero-from: #0e0d0b;
+    --hero-mid: #17130f;
+    --hero-to: #261509;
+    --hero-ink: #f6f3ee;
+    --hero-mut: #a9a299;
+
+    --shadow-card: 0 1px 2px rgba(15, 14, 12, 0.04), 0 10px 28px rgba(15, 14, 12, 0.05);
+    --shadow-pop: 0 4px 10px rgba(15, 14, 12, 0.06), 0 20px 48px rgba(15, 14, 12, 0.14);
+  }
+
+  .dark {
+    --canvas: #0d0c0b;
+    --canvas-hi: #121110;
+    --canvas-lo: #0a0a09;
+    --card: #161514;
+    --soft: #1e1d1b;
+    --line: #2a2825;
+
+    --ink: #f4f2ee;
+    --body: #d1cec7;
+    --mid: #99958c;
+    --faint: #8e8a82;
+
+    --accent: #fb7a2f;
+    --accent-deep: #c2500d;
+    --accent-tint: #33190b;
+    --ok: #4fd39e;
+    --ok-tint: #11302a;
+    --warn-tint: #2d2413;
+    --danger-tint: #321a1c;
+    --info-tint: #16233c;
+    --warn: #e0b45c;
+    --danger: #e57e84;
+    --info: #7ba3f0;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px rgba(0, 0, 0, 0.25);
+    --shadow-pop: 0 4px 10px rgba(0, 0, 0, 0.4), 0 20px 48px rgba(0, 0, 0, 0.5);
+  }
+
+  html {
+    font-feature-settings: 'ss01';
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--canvas);
+    background-image: radial-gradient(1200px 600px at 20% -10%, var(--canvas-hi), transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, var(--canvas-lo), transparent 55%);
+    background-attachment: fixed;
+    color: var(--ink);
+    @apply antialiased;
+  }
+
+  .font-mono {
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: var(--accent-tint);
+    color: var(--ink);
+  }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex='-1'])):focus-visible {
+    outline: 2px solid var(--accent-deep);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@layer utilities {
+  .label-mono {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.06em];
+  }
+  .card-shadow { box-shadow: var(--shadow-card); }
+  .pop-shadow { box-shadow: var(--shadow-pop); }
+  .hero-panel {
+    background-image: radial-gradient(560px 300px at 85% -20%, rgba(234, 88, 12, 0.28), transparent 65%),
+      linear-gradient(125deg, var(--hero-from), var(--hero-mid) 55%, var(--hero-to));
+  }
+  .animate-row-in { animation: row-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+
+@keyframes row-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

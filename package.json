@@ -1,0 +1,20 @@
+{
+  "name": "pitchfirst",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Where founders and investors meet — pitch first, meet second.",
+  "scripts": {
+    "dev": "pnpm --filter @pitchfirst/web dev",
+    "build": "pnpm --filter @pitchfirst/web build",
+    "start": "pnpm --filter @pitchfirst/web start",
+    "lint": "pnpm --filter @pitchfirst/web lint",
+    "typecheck": "pnpm --filter @pitchfirst/web typecheck",
+    "test": "pnpm --filter @pitchfirst/web test"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["sharp"]
+  }
+}
